@@ -1,0 +1,165 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+.navbar a{
+  padding-right: 20px;
+  text-decoration: none;
+  color: aliceblue;
+}
+.footer{
+ float: inline-end;
+ width: 100%;
+ margin-top: 500px;
+}
+.textdo{
+  text-align: left;
+  width: 35%;
+  display: inline-block;
+  align-self: center;
+  align-content: center;
+  align-items: center;
+  
+}
+.butt{
+ margin: 40px;
+  
+}
+.rightshift{
+  text-align: right;
+
+}
+.cartimg{
+  width: 45px;
+  float: left;
+  border-radius: 50%;
+  margin: 10px;
+
+}
+.red{
+ border-color: red;
+ background-color: red;
+}
+.table{
+  
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.searchbar{
+  
+  width: 100%;
+  display: flex;
+  justify-content: center;
+ 
+}
+.form-control{
+  width: 400px;
+}
+.noresult{
+  margin-top: 300px;
+  color: red;
+}
+.profilediv{
+  width: 60%;
+  margin-left: 300px;
+}
+.profilehead{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-decoration: underline;
+  text-transform: capitalize;
+  
+}
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.cproduct {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Space out items evenly */
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center; /* Center-align text */
+  width: 100%; /* Take full width */
+  max-width: 800px; /* Limit the width of the product container */
+  margin: 0 auto 15px; /* Center the product container and add space below */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure the image is a fixed size and aligned left */
+.cimgdiv img {
+  width: 100px;
+  height: auto;
+  border-radius: 8px;
+  margin-right: 20px;
+}
+
+.cproducts{
+  margin-top: 20px;
+}
+/* Flex-grow the infodiv to fill available space */
+.cinfodiv {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px; /* Space between the name and price */
+}
+
+/* Display product details inline with suitable spacing */
+.cinfodiv span {
+  font-size: 1.2rem;
+}
+
+
+/* Style the remove button */
+.cproduct button {
+  background-color: #ffcc00;
+  color: rgb(8, 8, 8);
+  padding: 10px 20px;
+  font-weight: 900;
+  border-radius: 7px;
+  cursor: pointer;
+  border: 2px solid black;
+}
+
+
+
+.cinfodiv button:hover {
+  background-color: #080808;
+  color: white;
+  border: 5px solid rgb(226, 208, 8);
+}
+
