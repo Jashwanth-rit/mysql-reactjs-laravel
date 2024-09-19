@@ -1,0 +1,243 @@
+/* styles.css */
+.lApp {
+    text-align: center;
+    margin: 50px auto;
+    width: 40%;
+    background-color: #f4f4f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .Form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .butt {
+    margin-top: 10px;
+    background-color: #333;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .butt:hover {
+    background-color: #555;
+  }
+  
+  .error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
+  .profile-container {
+   
+    max-width: 1200px;
+    margin: auto;
+    padding: 2rem;
+    margin-top: 100px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-heading {
+    font-size: 2.5rem;
+    color: #343a40;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.profile-accordion {
+    margin-bottom: 2rem;
+}
+
+.button-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.button-classic {
+    font-size: 1rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 30px;
+    background-color: #343a40;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.button-classic:hover {
+    background-color: #495057;
+    transform: scale(1.05);
+}
+
+.add-container {
+  
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+    margin-top: 100px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.add-heading {
+    font-size: 2rem;
+    color: #343a40;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.add-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-error {
+    border: 2px solid #ff4d4d;
+    background-color: #ffe5e5;
+}
+
+.button-classic {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 30px;
+    background-color: #343a40;
+    color: white;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.button-classic:hover {
+    background-color: #495057;
+    transform: scale(1.05);
+}
+
+/* General Container Styling */
+.update-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 100px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .update-container h1 {
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+  }
+  
+  .form-control {
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+  }
+  
+  .form-control.red {
+    border-color: #dc3545;
+    background-color: #f8d7da;
+  }
+  
+  .form-control.green {
+    border-color: #28a745;
+    background-color: #d4edda;
+  }
+  
+  .submit-button {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 16px;
+    text-align: center;
+    background-color: #343a40;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  
+  .submit-button:hover {
+    background-color: #23272b;
+  }
+  
+ /* Style for the form container */
+.form-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Form heading style */
+.form-heading {
+  text-align: center;
+  color: #333;
+  font-family: 'Arial', sans-serif;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+/* Form input style */
+.form-input {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+/* Submit button styles */
+.submit-button {
+  width: 100%;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 10px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.submit-button:hover {
+  background-color: #555;
+}
+
+/* Error message style */
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* Input focus style */
+.form-input:focus {
+  border-color: #007bff;
+  outline: none;
+}

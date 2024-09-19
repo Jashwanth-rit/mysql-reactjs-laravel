@@ -1,147 +1,236 @@
-
-//making seperate add tab to input to data base what we enter
-
 import Form from 'react-bootstrap/Form';
-import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './style.css'; 
 
-import Row from 'react-bootstrap/Row';
-import React,{useState,useEffect} from 'react'
- import { useNavigate } from 'react-router-dom';
-// import { name } from 'ejs';
-
-
-
-
-const Add = ()=>{
-
-    const [id,setid] = useState("");
-    const [err,seterr] = useState(false);
-    const [price,setprice] = useState("");
-    const [name,setname] = useState("");
-    const [url,seturl] = useState("");
-    const [discription,setdis] = useState("");
-
-    const collectdata = async (e)=>{
-
-      e.preventDefault();
-        if(!id || !price || !name || !url || !discription){
-            alert("enter all the required inputs")
-            seterr(true);
-            return false;
+const Add = () => {
+    const [id, setId] = useState("");
+    const [price, setPrice] = useState("");
+    const [name, setName] = useState("");
+    const [url, setUrl] = useState("");
+    const [description, setDescription] = useState("");
+    const [err, setErr] = useState(false);
+    
+    const collectData = async (e) => {
+        e.preventDefault();
+    
+        if (!id || !price || !name || !url || !description) {
+            setErr(true);
+            return;
         }
-
-
-//"_id" is broser given id we can access it by knowing name "user"
-//in "user" object it will be stored
-//"parse" is used because in "user" data will be stored in form of string
-// so to convert it to object type and store it is used 
-
-
-// let userid = JSON.parse(localStorage.getItem('user'))._id
-
-        let result =  await fetch('http://localhost:8000/api/add',{
     
-          method:'post',
-          body: JSON.stringify({id,price,name,url,discription}),
-          headers:{
+       
+            let result = await fetch('http://localhost:8000/api/add', {
+                method: 'POST',
+                body: JSON.stringify({ id, price, name, url, description }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
     
-            'Content-Type':"application/json"
-          }
-        })
-        console.warn(result)
-        result  = await result.json()
-        console.warn(result)
-        
-        
-        if(result.id){
-          setid("");
-            setprice("");
-            setname("");
-            seturl("");
-            setdis("");
-            seterr(false);
-            alert("product pushed successfully")
+            if (!result.ok) {
+                // If response is not ok, log the error details
+                let errorMsg = await result.text(); // Get the raw error message
+                console.error('Error:', errorMsg);
+                alert('Server error: ' + result.status);
+                return;
+            }
+    
+            result = await result.json();
+            console.log("result", result);
             
-
-        }
-        else{
-            alert("invalid input search other")
-
-        }
-
-
-
-    }
+            if (result.id) {
+                setId("");
+                setPrice("");
+                setName("");
+                setUrl("");
+                setDescription("");
+                setErr(false);
+                alert("Product added successfully!");
+            } else {
+                alert("Invalid input. Try again.");
+            }
+       
+           
+        
+    };
+    
 
     return (
-        <div className='App textdo'>
-            <h1>Add page</h1>
+        <div className='add-container'>
+            <h1 className='add-heading'>Add Product</h1>
+            <Form onSubmit={collectData} className="add-form">
+                <Form.Group className="mb-3" controlId="formGroupId">
+                    <Form.Label></Form.Label>
+                    <Form.Control
+                        className={err && !id ? "input-error" : ""}
+                        type="text"
+                        placeholder={err && !id ? "*Required" : "Enter product ID"}
+                        value={id}
+                        onChange={(e) => setId(e.target.value)}
+                    />
+                </Form.Group>
 
-            <Form>
+                <Form.Group className="mb-3" controlId="formGroupPrice">
+                    <Form.Label></Form.Label>
+                    <Form.Control
+                        className={err && !price ? "input-error" : ""}
+                        type="text"
+                        placeholder={err && !price ? "*Required" : "Enter price"}
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
+                    />
+                </Form.Group>
 
-          
-            <Form.Group className="mb-3" controlId="formGroupId">
-    <Form.Label>Id</Form.Label>
-    <Form.Control
-        className={err ? "red" : "green"}
-        type="text"
-        placeholder={err ? "*required" : "Enter id"}
-        value={id}
-        onChange={(e) => setid(e.target.value)}
-    />
-</Form.Group>
+                <Form.Group className="mb-3" controlId="formGroupName">
+                    <Form.Label></Form.Label>
+                    <Form.Control
+                        className={err && !name ? "input-error" : ""}
+                        type="text"
+                        placeholder={err && !name ? "*Required" : "Enter product name"}
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                    />
+                </Form.Group>
 
-<Form.Group className="mb-3" controlId="formGroupPrice">
-    <Form.Label>Price</Form.Label>
-    <Form.Control
-        className={err ? "red" : "green"}
-        type="text"
-        placeholder={err ? "*required" : "Enter price"}
-        value={price}
-        onChange={(e) => setprice(e.target.value)}
-    />
-</Form.Group>
+                <Form.Group className="mb-3" controlId="formGroupUrl">
+                    <Form.Label></Form.Label>
+                    <Form.Control
+                        className={err && !url ? "input-error" : ""}
+                        type="text"
+                        placeholder={err && !url ? "*Required" : "Enter product image URL"}
+                        value={url}
+                        onChange={(e) => setUrl(e.target.value)}
+                    />
+                </Form.Group>
 
-<Form.Group className="mb-3" controlId="formGroupName">
-    <Form.Label>Name</Form.Label>
-    <Form.Control
-        className={err ? "red" : "green"}
-        type="text"
-        placeholder={err ? "*required" : "Enter name"}
-        value={name}
-        onChange={(e) => setname(e.target.value)}
-    />
-</Form.Group>
+                <Form.Group className="mb-3" controlId="formGroupDescription">
+                    <Form.Label></Form.Label>
+                    <Form.Control
+                        className={err && !description ? "input-error" : ""}
+                        type="text"
+                        placeholder={err && !description ? "*Required" : "Enter product description"}
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                    />
+                </Form.Group>
 
-<Form.Group className="mb-3" controlId="formGroupUrl">
-    <Form.Label>Url</Form.Label>
-    <Form.Control
-        className={err ? "red" : "green"}
-        type="text"
-        placeholder={err ? "*required" : "Enter url"}
-        value={url}
-        onChange={(e) => seturl(e.target.value)}
-    />
-</Form.Group>
-
-<Form.Group className="mb-3" controlId="formGroupDescription">
-    <Form.Label>Description</Form.Label>
-    <Form.Control
-        className={err ? "red" : "green"}
-        type="text"
-        placeholder={err ? "*required" : "Enter description"}
-        value={discription}
-        onChange={(e) => setdis(e.target.value)}
-    />
-</Form.Group>
-
-     
-    </Form>
-    <Button className='butt' variant="dark" onClick = {collectdata}>Add !!</Button>
-    
+                <Button className="button-classic" variant="dark" type="submit">Add Product</Button>
+            </Form>
         </div>
-    )
-}
+    );
+};
 
 export default Add;
+
+
+// import React, { useState } from 'react';
+// import Form from 'react-bootstrap/Form';
+// import Button from 'react-bootstrap/Button';
+// import './style.css'; 
+
+// const Add = () => {
+//     const [id, setId] = useState("");
+//     const [price, setPrice] = useState("");
+//     const [name, setName] = useState("");
+//     const [url, setUrl] = useState("");
+//     const [description, setDescription] = useState("");
+//     const [err, setErr] = useState(false);
+    
+//     const collectData = async (e) => {
+//         e.preventDefault();
+
+//         if (!id || !price || !name || !url || !description) {
+//             setErr(true);
+//             return;
+//         }
+
+//         let result = await fetch('http://localhost:8000/api/add', {
+//             method: 'post',
+//             body: JSON.stringify({ id, price, name, url, description }),
+//             headers: {
+//                 'Content-Type': "application/json"
+//             }
+//         });
+
+//         result = await result.json();
+//         if (result.id) {
+//             setId("");
+//             setPrice("");
+//             setName("");
+//             setUrl("");
+//             setDescription("");
+//             setErr(false);
+//             alert("Product added successfully!");
+//         } else {
+//             alert("Invalid input. Try again.");
+//         }
+//     };
+
+//     return (
+//         <div className='add-container'>
+//             <h1 className='add-heading'>Add Product</h1>
+//             <Form onSubmit={collectData} className="add-form">
+//                 <Form.Group className="mb-3" controlId="formGroupId">
+//                     <Form.Label>ID</Form.Label>
+//                     <Form.Control
+//                         className={err && !id ? "input-error" : ""}
+//                         type="text"
+//                         placeholder={err && !id ? "*Required" : "Enter product ID"}
+//                         value={id}
+//                         onChange={(e) => setId(e.target.value)}
+//                     />
+//                 </Form.Group>
+
+//                 <Form.Group className="mb-3" controlId="formGroupPrice">
+//                     <Form.Label>Price</Form.Label>
+//                     <Form.Control
+//                         className={err && !price ? "input-error" : ""}
+//                         type="text"
+//                         placeholder={err && !price ? "*Required" : "Enter price"}
+//                         value={price}
+//                         onChange={(e) => setPrice(e.target.value)}
+//                     />
+//                 </Form.Group>
+
+//                 <Form.Group className="mb-3" controlId="formGroupName">
+//                     <Form.Label>Name</Form.Label>
+//                     <Form.Control
+//                         className={err && !name ? "input-error" : ""}
+//                         type="text"
+//                         placeholder={err && !name ? "*Required" : "Enter product name"}
+//                         value={name}
+//                         onChange={(e) => setName(e.target.value)}
+//                     />
+//                 </Form.Group>
+
+//                 <Form.Group className="mb-3" controlId="formGroupUrl">
+//                     <Form.Label>Image URL</Form.Label>
+//                     <Form.Control
+//                         className={err && !url ? "input-error" : ""}
+//                         type="text"
+//                         placeholder={err && !url ? "*Required" : "Enter product image URL"}
+//                         value={url}
+//                         onChange={(e) => setUrl(e.target.value)}
+//                     />
+//                 </Form.Group>
+
+//                 <Form.Group className="mb-3" controlId="formGroupDescription">
+//                     <Form.Label>Description</Form.Label>
+//                     <Form.Control
+//                         className={err && !description ? "input-error" : ""}
+//                         type="text"
+//                         placeholder={err && !description ? "*Required" : "Enter product description"}
+//                         value={description}
+//                         onChange={(e) => setDescription(e.target.value)}
+//                     />
+//                 </Form.Group>
+
+//                 <Button className="button-classic" variant="dark" type="submit">Add Product</Button>
+//             </Form>
+//         </div>
+//     );
+// };
+
+// export default Add;

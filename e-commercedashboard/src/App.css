@@ -146,9 +146,10 @@
 
 /* Style the remove button */
 .cproduct button {
-  background-color: #ffcc00;
+  background-color: #f6f4ec;
   color: rgb(8, 8, 8);
   padding: 10px 20px;
+  padding-right: 10px;
   font-weight: 900;
   border-radius: 7px;
   cursor: pointer;
@@ -160,6 +161,39 @@
 .cinfodiv button:hover {
   background-color: #080808;
   color: white;
-  border: 5px solid rgb(226, 208, 8);
+  border: 5px solid rgb(241, 240, 237);
 }
 
+/* Modal Styles */
+.modal-content {
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+.modal-header {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.add-form .form-control {
+  margin-bottom: 10px;
+}
+
+.button-classic {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+}
+
+.button-classic:hover {
+  background-color: #555;
+}

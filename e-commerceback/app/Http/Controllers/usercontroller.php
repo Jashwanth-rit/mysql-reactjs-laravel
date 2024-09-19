@@ -27,17 +27,29 @@ class usercontroller extends Controller
        }
 
 
-    function add(Request $req){
-        $user = new product;
-        $user->name = $req->input('name');
-        $user->discription = $req->input('discription');
-       
-        $user->url = $req->input('url');
-        $user->price = $req->input('price');
-        $user->save();
-        return $user;
-
+       function add(Request $req) {
+        echo  $req;
+        $validated = $req->validate([
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'url' => 'required|url',
+            'price' => 'required|numeric',
+        ]);
+    
+        $user = new Product;
+        $user->name = $validated['name'];
+        $user->discription = $validated['description'];
+        $user->url = $validated['url'];
+        $user->price = $validated['price'];
+    
+        if ($user->save()) {
+            return response()->json(['success' => true, 'id' => $user->id], 200);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Failed to save product'], 500);
+        }
     }
+    
+    
     function products(){
         return product::all();
     }
@@ -66,7 +78,7 @@ class usercontroller extends Controller
         $prod->name = $req->name;
         $prod->price = $req->price;
         $prod->url = $req->url;
-        $prod->discription = $req->discription;
+        $prod->discription = $req->description;
         $ans = $prod->save();
         return $ans;
     }

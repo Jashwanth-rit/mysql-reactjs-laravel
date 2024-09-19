@@ -1,87 +1,102 @@
 import Form from 'react-bootstrap/Form';
-import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-
-import Row from 'react-bootstrap/Row';
-import React,{useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+ import './style.css'; // Import the classic CSS styles
 
+const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
-const Login = ()=>{
+  useEffect(() => {
+    const auth = localStorage.getItem('user');
+    if (auth) {
+      navigate('/');
+    }
+  }, [navigate]);
 
-    const [email,setemail] = useState("");
+  const validateForm = () => {
+    const newErrors = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordRegex = /^(?=.*[!@#$%^&*])/;
 
-    const [password,setpassword] = useState("");
-const navigate = useNavigate();
-
-// const checkdata = ()=>{
-//   console.warn(email);
-//   const auth = localStorage.getItem(`user${email}`);
-//   if(auth){
-//     navigate('/')
-//   }
-// }
-
-useEffect(()=>
-    {
-      const auth = localStorage.getItem('user');
-      
-      if(auth){
-        navigate('/')
-      }
-    },[]);
-
-    const gotoregist=()=>{
-      navigate('/regist')
+    if (!email || !emailRegex.test(email)) {
+      newErrors.email = 'Please enter a valid email address';
     }
 
-const collectdata = async ()=>{
-    let result =  await fetch(`http://localhost:8000/api/login`, {
+    if (!password || password.length < 8 || !passwordRegex.test(password)) {
+      newErrors.password = 'Password must be at least 8 characters and include at least one special character (!@#$%^&*)';
+    }
+
+    return newErrors;
+  };
+
+  const collectData = async () => {
+    const formErrors = validateForm();
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
+      return;
+    }
+
+    let result = await fetch(`http://localhost:8000/api/login`, {
       method: 'POST',
       headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
       },
-      body: JSON.stringify({ email, password })
-  });
-
+      body: JSON.stringify({ email, password }),
+    });
 
     result = await result.json();
-    console.warn( result);
-    if(result){
-      //remember name "user" which help u to access data in it during Add , Update , dlt.
-      //here first parameter is we can give and we should remember 
-      localStorage.setItem("user",JSON.stringify(result))
-      //  localStorage.setItem("token",JSON.stringify(result.auth))
-      navigate("/")
-
+    if (result) {
+      localStorage.setItem('user', JSON.stringify(result));
+      navigate('/');
+    } else {
+      alert('Register first or enter correct credentials.');
+      navigate('/regist');
     }
-    else{
-        alert("register first !! or u entered wrong email or password u setted!!!");
-        navigate("/regist")
-    }
-}
+  };
 
-    return (
-        <div className='App  textdo' >
-            <h1>Alert: register before login</h1>
-            <Form>
+  const goToRegister = () => {
+    navigate('/regist');
+  };
 
-          
-      <Form.Group className="mb-3" controlId="formGroupEmail">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" value = {email} onChange = {(e)=>setemail(e.target.value)}/>
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formGroupPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control type="password" placeholder="Password"  value = {password} onChange = {(e)=>setpassword(e.target.value)}/>
-      </Form.Group>
-    </Form>
-    <Button variant="dark" onClick = {collectdata}>login !!</Button>
-    <Button variant="dark" onClick = {gotoregist}>new regist !!</Button>
-        </div>
-    
-    )
-}
+  return (
+    <div className="lApp">
+      <h1>Alert: Register Before Login</h1>
+      <Form className="Form">
+        <Form.Group className="mb-3" controlId="formGroupEmail">
+          <Form.Label></Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Enter email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          {errors.email && <span className="error">{errors.email}</span>}
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formGroupPassword">
+          <Form.Label></Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Enter password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          {errors.password && <span className="error">{errors.password}</span>}
+        </Form.Group>
+      </Form>
+      <Button className="butt" variant="dark" onClick={collectData}>
+        Login
+      </Button>
+      <Button className="butt" variant="dark" onClick={goToRegister}>
+        Register
+      </Button>
+    </div>
+  );
+};
 
 export default Login;

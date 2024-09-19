@@ -5,7 +5,9 @@ import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import './App.css';
+ import './App.css';
+// import './style.css'; 
+
 
 const Product = () => {
   const [products, setProducts] = useState([]);
@@ -54,17 +56,19 @@ const Product = () => {
     navigate(`/update/${id}`);
   };
 
-  const deleteProduct = async (id) => {
+  const deleteProduct = async (name) => {
     try {
       let response = await fetch("http://localhost:8000/api/delete", {
         method: "POST", // POST request for deletion
-        body: JSON.stringify({ id }),
+        body: JSON.stringify({ name }),
         headers: {
           "Content-Type": "application/json",
         },
       });
 
       let result = await response.json();
+      console.warn(result);
+      
       if (result.success) {
         fetchProducts(); // Refresh the products list
       } else {
@@ -112,14 +116,14 @@ const Product = () => {
                   <span>Price: ${item.price}</span>
                 </div>
                 <button
-                  onClick={() => deleteProduct(item.id)}
+                  onClick={() => deleteProduct(item.name)}
                 >
-                  Dlt!!
+                  Dlt
                 </button>
                 <button
                   onClick={() => updateProduct(item.id)}
                 >
-                  update!!
+                  update
                 </button>
               </div>
             ))
